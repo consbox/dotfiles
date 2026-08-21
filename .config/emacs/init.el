@@ -35,7 +35,6 @@
   (electric-pair-mode t "enable automatic brackets pairing.")
   (column-number-mode t "show cloumn numbers in modline.")
   (warning-minimum-level :error "only show errors in *warning* buffer. (maybe not so good)")
-  (fill-column 100)
   :bind (("<escape>" . keyboard-escape-quit))
   :config
 
@@ -56,9 +55,6 @@
   :hook
   ((prog-mode . hl-line-mode)
    (text-mode . hl-line-mode)))
-
-(use-package display-fill-column-indicator
-  :hook ((prog-mode . display-fill-column-indicator-mode)))
 
 (use-package whitespace
   :custom (whitespace-line-column nil "if nil, use the value of the ‘fill-column’ variable")
