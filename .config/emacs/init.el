@@ -43,7 +43,6 @@
   (add-to-list 'default-frame-alist
 	       '(font . "DejaVu Sans Mono-18:bold:italic"))
 
-
   (add-hook 'prog-mode-hook (lambda ()
 			      (setq display-line-numbers 'relative)))
 
@@ -67,10 +66,6 @@
 
 (use-package man
   :bind (("C-c m" . man)))
-
-(use-package isearch
-  :custom
-  (search-default-mode t))
 
 (use-package files
   :custom
@@ -112,13 +107,6 @@
   (eshell/alias "ll" "ls -ahl")
   (eshell/alias "c" "clear-scrollback"))
 
-(use-package flyspell-mode
-  :bind ((:map text-mode-map
-	       ("C-c f" . flyspell-mode))
-	 (:map prog-mode-map
-	       ("C-c f" . flyspell-prog-mode))
-	 ("C-c d" . ispell-change-dictionary)))
-
 (use-package dired
   :custom
   (dired-listing-switches "-agho --ignore-backups --group-directories-first")
@@ -127,8 +115,10 @@
 
 ;;; External packages
 
+(use-package system-packages
+  :ensure t)
+
 (use-package all-the-icons-dired
-  :if (display-graphic-p)
   :pin melpa
   :ensure t
   :hook (dired-mode . all-the-icons-dired-mode))
@@ -176,9 +166,6 @@
   :config
   (load-theme 'solarized-dark))
 
-(use-package system-packages
-  :ensure t)
-
 (use-package slime
   :ensure-system-package sbcl
   :pin nongnu
@@ -210,16 +197,6 @@
   :hook
   ((prog-mode . company-mode)
    (text-mode . company-mode)))
-
-(use-package yasnippet
-  :pin gnu
-  :ensure t
-  :hook ((prog-mode . yas-minor-mode)))
-
-(use-package yasnippet-snippets
-  :after yasnippet
-  :pin nongnu
-  :ensure t)
 
 (use-package magit
   :ensure-system-package git
@@ -253,7 +230,6 @@
   :defer t)
 
 (use-package lua-mode
-  :ensure-system-package lua5.4
   :pin nongnu
   :ensure t
   :defer t)
@@ -269,98 +245,5 @@
   :ensure t
   :defer t
   :mode ("\\.s\\'" "\\.S\\'" "\\.asm\\'" "\\.inc\\'"))
-
-(use-package elfeed
-  :ensure-system-package mpv
-  :pin nongnu
-  :ensure t
-  :defer t
-  :preface
-  (defun elfeed-open-in-mpv ()
-    (interactive)
-    (let ((selected-feeds (elfeed-search-selected t)))
-      (when (null selected-feeds)
-	(message "elfeed-open-in-mpv: nothing selected!"))
-      (let ((link (elfeed-entry-link selected-feeds)))
-	(if (length> link 0)
-	    (start-process-shell-command
-	     "mpv" "elfeed-mpv" (string-join (list "mpv" link) " "))
-	  (message "elfeed-open-in-mpv: nothing selected!")))))
-  :bind (("C-c r" . elfeed)
-	 (:map elfeed-search-mode-map
-	       ("C-c m" . 'elfeed-open-in-mpv)))
-  :custom
-  (elfeed-search-title-max-width 80)
-  (elfeed-db-directory (concat user-emacs-directory "/.elfeed"))
-  :config
-  (elfeed-search-set-filter "@1-months-ago +unread -emacs -youtube")
-  (add-hook 'elfeed-new-entry-hook
-	    (elfeed-make-tagger :before "4 weeks ago"
-				:remove 'unread))
-  (setq elfeed-feeds
-	;; The last Youtubers I'm thinking of are still worth
-	;; watching. I think I'll drop them soon.
-	'(;; Diesel Creek
-	  ("https://www.youtube.com/feeds/videos.xml?playlist_id=UULFBB0oz7Yo_35gnbPYGKGJTA" youtube)
-	  ;; Scrappy Industries
-	  ("https://www.youtube.com/feeds/videos.xml?playlist_id=UULFyacDPsLkX-KDqYMZPpmtDQ" youtube)
-	  ;; Welker Farms
-	  ("https://www.youtube.com/feeds/videos.xml?playlist_id=UULFtKUW8LJK2Ev8hUy9ZG_PPA" youtube)
-	  ;; Tsoding
-	  ("https://www.youtube.com/feeds/videos.xml?playlist_id=UULFrqM0Ym_NbK1fqeQG2VIohg" youtube)
-	  ("https://www.youtube.com/feeds/videos.xml?playlist_id=UULFEbYhDd6c6vngsF5PQpFVWg" youtube)
-	  ;; Blogs
-	  ("https://planet.emacslife.com/atom.xml" emacs)
-	  ("https://daniel.haxx.se/blog/feed/" blog)
-	  ("https://suckless.org/atom.xml" blog))))
-
-(use-package emms
-  :ensure-system-package mpv
-  :pin gnu
-  :ensure t
-  :defer t
-  :preface
-  (defcustom playlists-path "~/Music/playlists/"
-    "Path for playlists used by `play-playlist' function."
-    :type 'string)
-
-  (defun play-playlist ()
-    "This function first sets `emms-source-file-default-directory'
- to `playlists-path' and than `emms-play-playlist' interactively."
-    (interactive)
-    (emms-stop)
-    (setq emms-source-file-default-directory playlists-path)
-    (call-interactively 'emms-play-playlist)
-    (emms-playlist-mode-go))
-
-  (defcustom just-play-path "~/Music/"
-    "Path for playlists used by `play-playlist' function."
-    :type 'string)
-
-  (defun just-play ()
-    "Just playn what ever is at `just-play-path'"
-    (interactive)
-    (emms-stop)
-    (setq emms-source-file-default-directory just-play-path)
-    (call-interactively 'emms-play-file))
-  :custom
-  (emms-player-list '(emms-player-mpv))
-  (emms-info-functions '(emms-info-native))
-  (emms-source-file-default-directory "~/Music/")
-  (emms-repeat-playlist t)
-  (emms-mode-line-format "")
-  :bind
-  (("C-c e i" . emms)
-   ("C-c e g" . 'emms-playlist-mode-go)
-   ("C-c e f" . 'just-play)
-   ("C-c e b" . 'emms-browser)
-   ("C-c e p" . 'play-playlist)
-   ("C-c e r" . 'emms-toggle-repeat-track)
-   ("<XF86AudioPlay>"  . 'emms-pause )
-   ("<<XF86AudioStop>" . 'emms-pause )
-   ("<XF86AudioPrev>"  . 'emms-previous)
-   ("<XF86AudioNext>"  . 'emms-next))
-  :config
-  (emms-all))
 
 ;;; init.el ends here
