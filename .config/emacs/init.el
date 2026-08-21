@@ -150,7 +150,32 @@
 	  (string green-cooler)))
   (modus-themes-load-theme 'modus-vivendi))
 
+(use-package gruvbox-theme
+  :disabled
+  :pin nongnu
+  :ensure t
+  :preface
+  (defun switch-theme ()
+    (interactive)
+    (let ((dark 'gruvbox-dark-hard)
+	  (light 'gruvbox-light-hard))
+      (cond ((memq dark custom-enabled-themes)
+	     (disable-theme dark)
+	     (load-theme light t))
+	    ((memq light custom-enabled-themes)
+	     (disable-theme light)
+	     (load-theme dark t)))))
+  :bind (("<f5>" . 'switch-theme))
+  :hook ((prog-mode . (lambda () (highlight-regexp "\\(TODO\\|NOTE\\):" 'hi-blue-b))))
+  :config
+  (load-theme 'gruvbox-dark-hard t)
+  :custom-face
+  (whitespace-space ((t (:foreground "#504945"))))
+  (todo-date ((t (:foreground "#fabd2f"))))
+  (todo-nondiary ((t (:foreground "#83a598")))))
+
 (use-package solarized-theme
+  :disabled
   :pin nongnu
   :ensure t
   :config
