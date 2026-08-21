@@ -2,45 +2,68 @@ URxvt.font:xft:DejaVuSansMono:pixelsize=18
 URxvt.scrollBar: false
 
 ! colorscheme (modus-vivendi like)
-! URxvt.background: #000000
-! URxvt.foreground: #ffffff
+URxvt.background: #000000
+URxvt.foreground: #ffffff
 
-! URxvt.color0: #000000
-! URxvt.color1: #ff8059
-! URxvt.color2: #44bc44
-! URxvt.color3: #d0bc00
-! URxvt.color4: #2fafff
-! URxvt.color5: #feacd0
-! URxvt.color6: #00d3d0
-! URxvt.color7: #191a1b
+URxvt.color0: #000000
+URxvt.color1: #ff8059
+URxvt.color2: #44bc44
+URxvt.color3: #d0bc00
+URxvt.color4: #2fafff
+URxvt.color5: #feacd0
+URxvt.color6: #00d3d0
+URxvt.color7: #191a1b
 
-! URxvt.color8:  #100f10
-! URxvt.color9:  #ef8b50
-! URxvt.color10: #70b900
-! URxvt.color11: #c0c530
-! URxvt.color12: #79a8ff
-! URxvt.color13: #f78fe7
-! URxvt.color14: #6ae4b9
-! URxvt.color15: #e0e6f0
+URxvt.color8:  #100f10
+URxvt.color9:  #ef8b50
+URxvt.color10: #70b900
+URxvt.color11: #c0c530
+URxvt.color12: #79a8ff
+URxvt.color13: #f78fe7
+URxvt.color14: #6ae4b9
+URxvt.color15: #e0e6f0
 
 ! colorscheme (gruvbox)
-URxvt.background: #1d2021
-URxvt.foreground: #ebdbb2
+! URxvt.background: #1d2021
+! URxvt.foreground: #ebdbb2
 
-URxvt.color0: #1d2021
-URxvt.color1: #cc241d
-URxvt.color2: #98971a
-URxvt.color3: #d79921
-URxvt.color4: #458588
-URxvt.color5: #b16286
-URxvt.color6: #689d6a
-URxvt.color7: #a89984
+! URxvt.color0: #1d2021
+! URxvt.color1: #cc241d
+! URxvt.color2: #98971a
+! URxvt.color3: #d79921
+! URxvt.color4: #458588
+! URxvt.color5: #b16286
+! URxvt.color6: #689d6a
+! URxvt.color7: #a89984
 
-URxvt.color8:  #928374
-URxvt.color9:  #fb4934
-URxvt.color10: #b8bb26
-URxvt.color11: #fabd2f
-URxvt.color12: #83a598
-URxvt.color13: #d3869b
-URxvt.color14: #8ec07c
-URxvt.color15: #ebdbb2
+! URxvt.color8:  #928374
+! URxvt.color9:  #fb4934
+! URxvt.color10: #b8bb26
+! URxvt.color11: #fabd2f
+! URxvt.color12: #83a598
+! URxvt.color13: #d3869b
+! URxvt.color14: #8ec07c
+! URxvt.color15: #ebdbb2
+
+! colorscheme (solarized)
+! URxvt.background: #002b36
+! URxvt.foreground: #839496
+! URxvt*cursorColor: #93a1a1
+
+! URxvt*color0:  #002b36
+! URxvt*color1:  #dc322f
+! URxvt*color2:  #859900
+! URxvt*color3:  #b58900
+! URxvt*color4:  #268bd2
+! URxvt*color5:  #d33682
+! URxvt*color6:  #2aa198
+! URxvt*color7:  #eee8d5
+
+! URxvt*color8:  #073642
+! URxvt*color9:  #cb4b16
+! URxvt*color10: #586e75
+! URxvt*color11: #657b83
+! URxvt*color12: #839496
+! URxvt*color13: #6c71c4
+! URxvt*color14: #93a1a1
+! URxvt*color15: #fdf6e3

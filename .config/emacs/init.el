@@ -138,7 +138,6 @@
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package emacs
-  :disabled
   :init
   (require-theme 'modus-themes)
   :bind (("<f5>" . modus-themes-toggle))
