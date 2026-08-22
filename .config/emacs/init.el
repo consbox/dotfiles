@@ -181,6 +181,12 @@
   :ensure t
   :config
   (load (concat (getenv "HOME") "/quicklisp/clhs-use-local.el") t))
+(use-package rainbow-delimiters
+  :pin nongnu
+  :ensure t
+  :hook ((lisp-mode       . rainbow-delimiters-mode)
+	 (emacs-lisp-mode . rainbow-delimiters-mode)
+	 (scheme-mode     . rainbow-delimiters-mode)))
 
 (use-package multiple-cursors
   :pin nongnu
