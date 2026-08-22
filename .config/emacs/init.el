@@ -26,23 +26,20 @@
   :custom
   (inhibit-startup-screen t "disable the startup screen")
   (use-short-answers t "uses shorter answers y or n")
-  (ring-bell-function nil "turn off bell")
+  (ring-bell-function 'ignore "turn off bell")
   (vc-follow-symlinks t "follow symlinks without requesting confirmation.")
   (confirm-kill-emacs 'y-or-n-p "confirm before exiting emacs.")
   (use-file-dialog nil)
   (use-dialog-box nil)
+  (fill-column 80)
   (delete-by-moving-to-trash t "move deleted files to trash")
   (electric-pair-mode t "enable automatic brackets pairing.")
   (column-number-mode t "show cloumn numbers in modline.")
   (warning-minimum-level :error "only show errors in *warning* buffer. (maybe not so good)")
   :bind (("<escape>" . keyboard-escape-quit))
   :config
-
-  (setq ring-bell-function 'ignore)
-
   (add-to-list 'default-frame-alist
 	       '(font . "DejaVu Sans Mono-18:bold:italic"))
-
   (add-hook 'prog-mode-hook (lambda ()
 			      (setq display-line-numbers 'relative)))
 
@@ -79,7 +76,7 @@
   :custom
   (todo-directory "~/vault/todo/")
   :bind (("C-c t" . todo-show)
-	 ("C-c i" . todo-insert-item)
+	 ("C-c a" . todo-insert-item)
 	 ("C-c j" . todo-jump-to-category)))
 
 (use-package org
@@ -113,16 +110,6 @@
   (dired-dwim-target t)
   (dired-isearch-filenames t))
 
-;;; External packages
-
-(use-package system-packages
-  :ensure t)
-
-(use-package all-the-icons-dired
-  :pin melpa
-  :ensure t
-  :hook (dired-mode . all-the-icons-dired-mode))
-
 (use-package emacs
   :init
   (require-theme 'modus-themes)
@@ -134,6 +121,16 @@
 	  (comment yellow-cooler)
 	  (string green-cooler)))
   (modus-themes-load-theme 'modus-vivendi))
+
+;;; External packages
+
+(use-package system-packages
+  :ensure t)
+
+(use-package all-the-icons-dired
+  :pin melpa
+  :ensure t
+  :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package gruvbox-theme
   :disabled
@@ -180,7 +177,8 @@
   :pin melpa
   :ensure t
   :config
-  (load (concat (getenv "HOME") "/quicklisp/clhs-use-local.el") t))
+  (load (concat (getenv "HOME") "/quicklisp/clhs-use-local.el") t nil))
+
 (use-package rainbow-delimiters
   :pin nongnu
   :ensure t
