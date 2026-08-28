@@ -179,6 +179,14 @@
   :config
   (load (concat (getenv "HOME") "/quicklisp/clhs-use-local.el") t nil))
 
+(use-package paredit
+  :pin nongnu
+  :ensure t
+  :hook ((slime-repl-mode . paredit-mode)
+	 (lisp-mode       . paredit-mode)
+	 (emacs-lisp-mode . paredit-mode)
+	 (scheme-mode     . paredit-mode)))
+
 (use-package rainbow-delimiters
   :pin nongnu
   :ensure t
