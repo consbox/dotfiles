@@ -110,11 +110,17 @@
   (dired-dwim-target t)
   (dired-isearch-filenames t))
 
+;;; modus-theme config
+
 (use-package emacs
   :init
   (require-theme 'modus-themes)
   :bind (("<f5>" . modus-themes-toggle))
   :config
+  (setq modus-themes-bold-constructs t
+	modus-themes-italic-constructs t
+	modus-themes-disable-other-themes t)
+
   (setq modus-themes-common-palette-overrides
 	'((docstring green-faint)
 	  (docmarkup magenta-faint)
