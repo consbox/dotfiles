@@ -1,0 +1,77 @@
+{
+  "layer": "top", // Waybar at top layer
+  "position": "top",
+  "height": 28,   // Waybar height (to be removed for auto height)
+  "spacing": 3,   // Gaps between modules (4px)
+
+  "modules-left": [
+    "hyprland/workspaces"
+  ],
+
+  "modules-center": [
+
+  ],
+
+  "modules-right": [
+    "pulseaudio",
+    "network",
+    "clock",
+    "hyprland/language",
+    "tray",
+  ],
+
+  "hyprland/workspaces": {
+    "format": "{name}",
+    "format-icons": {
+      "1":  "", 
+      "2":  "", 
+      "3":  "", 
+      "4":  "", 
+      "5":  "", 
+      "6":  "", 
+      "7":  "", 
+      "8":  "", 
+      "9":  "", 
+      "10": "",
+    },
+  },
+
+  "pulseaudio": {
+    "scroll-step": 5, // %, can be a float
+    "format": "{volume}% {icon} {format_source}",
+    "format-bluetooth": "{volume}% {icon} {format_source}",
+    "format-bluetooth-muted": " {icon} {format_source}",
+    "format-muted": " {format_source}",
+    "format-source": "{volume}% ",
+    "format-source-muted": "",
+    "max-volume": "100",
+    "format-icons": {
+      "default": ["", "", ""]
+    },
+    "on-click": "pavucontrol"
+  },
+  
+  "network": {
+    "format-wifi": "{essid} ({signalStrength}%) ",
+    "format-ethernet": "{ipaddr}/{cidr} ",
+    "tooltip-format": "{ifname} via {gwaddr} ",
+    "format-linked": "{ifname} (No IP) ",
+    "format-disconnected": "Disconnected ⚠",
+    "format-alt": "{ifname}: {ipaddr}/{cidr}"
+  },
+  
+  "clock": {
+    "timezone": "Europe/Berlin",
+    "iso8601": true,
+    "format": "{:%Y-%m-%dT%H:%M:UTC%z}"
+  },
+
+  "hyprland/language": {
+    "format": "{short}",
+  },
+  
+  "tray": {
+    "icon-size": 21,
+    "spacing": 2,
+  },
+}

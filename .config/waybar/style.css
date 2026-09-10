@@ -1,0 +1,119 @@
+* {
+    font-family: "DejaVu Sans Mono", "FontAwesome", monospace;
+    font-size: 16px;
+    min-height: 0;
+}
+
+window#waybar {
+    padding: 0 7px;
+    background-color: #1d2021;
+    color: #ebdbb2;
+    transition-property: background-color;
+    transition-duration: .5s;
+}
+
+/* Workspaces */
+
+#workspaces button {
+    background-image: none;
+    box-shadow: none;
+    padding: 1px 5px;
+    margin: 0 1px;
+    background-color: #282828;
+    color: #fbf1c7;
+    border: 1px solid #3c3836;
+    border-radius: 2px;
+}
+
+#workspaces button:hover {
+    background-image: none;
+    box-shadow: none;
+    background-color: #282828;
+    color: #fbf1c7;
+    border-color: #3c3836;
+}
+
+#workspaces button.focused,
+#workspaces button.active {
+    background-image: none;
+    box-shadow: none;
+    background-color: #282828;
+    color: #fbf1c7;
+    border: 1px solid #fe8019;
+    border-radius: 2px;
+}
+
+#workspaces button.urgent {
+    background-color: #cc241d;   /* Gruvbox Red */
+    color: #ebdbb2;
+    border-color: #fb4934;
+}
+
+/* Modules */
+
+#network {
+    padding: 1px 7px 1px 7px;
+    background-color: #458588;
+    color: #fbf1c7;
+}
+
+#network.disconnected {
+    background-color: #cc241d;
+    color: #fbf1c7;
+}
+
+#pulseaudio {
+    padding: 1px 7px 1px 7px;
+    background-color: #689d6a;
+    color: #fbf1c7;
+}
+
+#pulseaudio.muted {
+    background-color: #b16286;
+    color: #fbf1c7;
+}
+
+#clock {
+    padding: 1px 7px 1px 7px;
+    background-color: #689d6a;
+    color: #fbf1c7;
+}
+
+#tray {
+    padding: 1px 7px 1px 7px;
+    background-color: #1d2021;
+    color: #fbf1c7;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+    background-color: #cc241d;
+}
+
+#language {
+    padding: 1px 7px 1px 7px;
+    background-color: #458588;
+    color: #fbf1c7;    
+}
+
+#battery,
+#cpu,
+#memory,
+#disk,
+#temperature,
+#backlight,
+#wireplumber,
+#custom-media,
+#mode,
+#idle_inhibitor,
+#scratchpad,
+#power-profiles-daemon,
+#mpd {
+    padding: 1px 7px 1px 7px;
+    background-color: #458588;
+    color: #fbf1c7;    
+}
