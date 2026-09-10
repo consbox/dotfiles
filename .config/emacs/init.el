@@ -31,17 +31,20 @@
   (confirm-kill-emacs 'y-or-n-p "confirm before exiting emacs.")
   (use-file-dialog nil)
   (use-dialog-box nil)
-  (fill-column 80)
+  (fill-column 120)
   (delete-by-moving-to-trash t "move deleted files to trash")
   (electric-pair-mode t "enable automatic brackets pairing.")
-  (column-number-mode t "show cloumn numbers in modline.")
+  (column-number-mode t "show column numbers in modline.")
   (warning-minimum-level :error "only show errors in *warning* buffer. (maybe not so good)")
   :bind (("<escape>" . keyboard-escape-quit))
   :config
   (add-to-list 'default-frame-alist
-	       '(font . "DejaVu Sans Mono-18:bold:italic"))
+	       '(font . "DejaVu Sans Mono-16:bold:italic"))
   (add-hook 'prog-mode-hook (lambda ()
 			      (setq display-line-numbers 'relative)))
+
+  (add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
+  (require 'gptel-tools)
 
   ;; Move customization variables to a separate file and load it.
   (setq custom-file (expand-file-name "custom-vars.el" user-emacs-directory))
@@ -82,6 +85,8 @@
 (use-package org
   :custom
   (org-hide-leading-stars t)
+  (org-hide-emphasis-markers t)
+  :hook ((org-mode . visual-line-mode))
   :custom-face
   (org-level-1 ((t (:height 1.35))))
   (org-level-2 ((t (:height 1.3))))
@@ -113,6 +118,7 @@
 ;;; modus-theme config
 
 (use-package emacs
+  :disabled
   :init
   (require-theme 'modus-themes)
   :bind (("<f5>" . modus-themes-toggle))
@@ -155,6 +161,12 @@
 						      :options (:num_ctx 16384))
 			:models '(gemma4:latest qwen-uncensored-4B:latest))))
 
+(use-package org-appear
+  :pin melpa
+  :ensure t
+  :after org-mode
+  :hook ((org-mode . org-appear-mode)))
+
 (use-package system-packages
   :ensure t)
 
@@ -164,7 +176,6 @@
   :hook (dired-mode . all-the-icons-dired-mode))
 
 (use-package gruvbox-theme
-  :disabled
   :pin nongnu
   :ensure t
   :preface
@@ -179,20 +190,11 @@
 	     (disable-theme light)
 	     (load-theme dark t)))))
   :bind (("<f5>" . 'switch-theme))
-  :hook ((prog-mode . (lambda () (highlight-regexp "\\(TODO\\|NOTE\\):" 'hi-blue-b))))
   :config
   (load-theme 'gruvbox-dark-hard t)
-  :custom-face
-  (whitespace-space ((t (:foreground "#504945"))))
-  (todo-date ((t (:foreground "#fabd2f"))))
-  (todo-nondiary ((t (:foreground "#83a598")))))
-
-(use-package solarized-theme
-  :disabled
-  :pin nongnu
-  :ensure t
-  :config
-  (load-theme 'solarized-dark))
+  (require 'whitespace)
+  (set-face-attribute 'whitespace-space nil
+                      :foreground "#3c3836"))
 
 (use-package slime
   :ensure-system-package sbcl
@@ -261,6 +263,10 @@
   :pin nongnu
   :ensure t
   :defer t)
+
+(use-package json-mode
+  :pin gnu
+  :ensure t)
 
 (use-package rainbow-mode
   :pin gnu
