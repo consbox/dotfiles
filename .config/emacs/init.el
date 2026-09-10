@@ -130,6 +130,31 @@
 
 ;;; External packages
 
+(use-package gptel
+  :pin melpa
+  :ensure t
+  :bind (("C-c g l" . gptel)
+	 ("C-c g s" . gptel-send)
+	 ("C-c g r" . gptel-rewrite)
+	 ("C-c g m" . gptel-menu))
+  :custom ((gptel-log-level 'info)
+	   (gptel-track-media t)
+	   (gptel-default-mode 'org-mode)
+	   (gptel-system-prompt "You are a large language model living in Emacs.
+ Your name is Fido, and you are a helpful assistant. Respond concisely.")
+	   (gptel-include-reasoning "*reasoning-log*"))
+  :hook ((gptel-post-stream . gptel-auto-scroll)
+	 (gptel-post-response-functions . gptel-end-of-response)
+	 (gptel-mode . gptel-highlight-mode))
+  :config
+  (setq gptel-model 'gemma4:latest
+	gptel-backend (gptel-make-ollama "Fido"
+			:host "localhost:11469"
+			:stream t
+			:request-params '(:keep_alive "15m"
+						      :options (:num_ctx 16384))
+			:models '(gemma4:latest qwen-uncensored-4B:latest))))
+
 (use-package system-packages
   :ensure t)
 
