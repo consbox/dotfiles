@@ -7,8 +7,9 @@ export EDITOR="emacsclient -c -a nano"
 export HISTSIZE=256
 export HISTFILESIZE=256
 export HISTCONTROL="erasedups:ignorespace"
+export OLLAMA_HOST=127.0.0.1:11469
 
-export PS1='\[\e[1m\] \[\e[0m\]\$\[\e[1m\] \[\e[0;92m\]\w \[\e[91;1m\] \[\e[0m\]'
+export PS1='\[\e[1m\] \[\e[0m\]λ\[\e[1m\] \[\e[0;92m\]\w \[\e[91;1m\] \[\e[0m\]'
 
 alias ls="ls --color=auto"
 alias la="ls -ah  --group-directories-first --color=auto"
