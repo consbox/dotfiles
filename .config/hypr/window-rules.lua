@@ -14,6 +14,14 @@ hl.window_rule({
 	float = true
 })
 
+hl.window_rule({
+	name = "steam",
+	match = {
+	    class = "steam",
+	},
+	workspace = "4",
+})
+
 local suppressMaximizeRule = hl.window_rule({
     -- Ignore maximize requests from all apps. You'll probably like this.
     name  = "suppress-maximize-events",

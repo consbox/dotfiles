@@ -12,9 +12,9 @@ hl.bind(MODKEY .. " + q",      hl.dsp.window.close())
 hl.bind(MODKEY .. " + return", hl.dsp.exec_cmd(terminal))
 hl.bind(MODKEY .. " + e",      hl.dsp.exec_cmd(editor))
 hl.bind(MODKEY .. " + w",      hl.dsp.exec_cmd(browser))
-hl.bind(MODKEY .. " + r",      hl.dsp.exec_cmd(menu))
+hl.bind(MODKEY .. " + d",      hl.dsp.exec_cmd(menu))
 hl.bind(MODKEY .. " + l",      hl.dsp.exec_cmd("hyprlock"))
-hl.bind(MODKEY .. " + f12",
+hl.bind(MODKEY .. " + F12",
 	hl.dsp.exec_cmd("command -v hyprshutdown >/dev/null 2>&1 && hyprshutdown || hyprctl dispatch 'hl.dsp.exit()'"))
 
 hl.bind(MODKEY .. " + F10", hl.dsp.exec_cmd("hyprctl switchxkblayout current next"))
@@ -36,6 +36,9 @@ hl.bind(MODKEY .. " + SHIFT + a", hl.dsp.layout("addmaster"))
 
 hl.bind(MODKEY .. " + SHIFT" .. " + comma", hl.dsp.layout("mfact -0.1"))
 hl.bind(MODKEY .. " + SHIFT" .. " + period", hl.dsp.layout("mfact +0.1"))
+
+-- screenshot
+hl.bind(MODKEY .. " + F9 ", hl.dsp.exec_cmd("hyprshot --mode region --output-folder ~/Pictures/screenshots/"))
 
 -- switch between windows
 hl.bind(MODKEY .. " + left",  hl.dsp.focus({ direction = "left" }))
@@ -61,9 +64,9 @@ hl.bind(MODKEY .. " + mouse:272", hl.dsp.window.drag(),   { mouse = true })
 hl.bind(MODKEY .. " + mouse:273", hl.dsp.window.resize(), { mouse = true })
 
 hl.bind("XF86AudioRaiseVolume",
-	hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 5%+"), { locked = true, repeating = true })
+	hl.dsp.exec_cmd("wpctl set-volume -l 1 @DEFAULT_AUDIO_SINK@ 2%+"), { locked = true, repeating = true })
 hl.bind("XF86AudioLowerVolume",
-	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-"),      { locked = true, repeating = true })
+	hl.dsp.exec_cmd("wpctl set-volume @DEFAULT_AUDIO_SINK@ 2%-"),      { locked = true, repeating = true })
 hl.bind("XF86AudioMute",
 	hl.dsp.exec_cmd("wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"),     { locked = true, repeating = true })
 hl.bind("XF86AudioMicMute",
