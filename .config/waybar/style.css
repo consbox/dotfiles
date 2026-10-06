@@ -43,6 +43,13 @@ window#waybar {
     border-radius: 2px;
 }
 
+#workspaces button.empty {
+    background-image: none;
+    box-shadow: none;
+    background-color: #282828;
+    color: #a89984;
+}
+
 #workspaces button.urgent {
     background-color: #cc241d;   /* Gruvbox Red */
     color: #ebdbb2;
@@ -60,6 +67,29 @@ window#waybar {
 #network.disconnected {
     background-color: #cc241d;
     color: #fbf1c7;
+}
+
+#mpd {
+    min-width: 300px;
+    padding: 1px 7px 1px 7px;
+    background-color: #458588;
+    color: #fbf1c7;
+}
+
+#mpd.playing {
+    background-color: #689d61;
+}
+
+#mpd.paused {
+    background-color: #458588;
+}
+
+#mpd.stopped {
+    background-color: #d79921;
+}
+
+#mpd.disconnected {
+    background-color: #cc241d;
 }
 
 #pulseaudio {
@@ -95,9 +125,10 @@ window#waybar {
 }
 
 #language {
+    min-width: 20px;
     padding: 1px 7px 1px 7px;
     background-color: #458588;
-    color: #fbf1c7;    
+    color: #fbf1c7;
 }
 
 #battery,
@@ -111,9 +142,8 @@ window#waybar {
 #mode,
 #idle_inhibitor,
 #scratchpad,
-#power-profiles-daemon,
-#mpd {
+#power-profiles-daemon {
     padding: 1px 7px 1px 7px;
     background-color: #458588;
-    color: #fbf1c7;    
+    color: #fbf1c7;
 }

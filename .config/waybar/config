@@ -5,7 +5,7 @@
   "spacing": 3,   // Gaps between modules (4px)
 
   "modules-left": [
-    "hyprland/workspaces"
+    "hyprland/workspaces",
   ],
 
   "modules-center": [
@@ -13,6 +13,7 @@
   ],
 
   "modules-right": [
+    "mpd",
     "pulseaudio",
     "network",
     "clock",
@@ -23,17 +24,48 @@
   "hyprland/workspaces": {
     "format": "{name}",
     "format-icons": {
-      "1":  "", 
-      "2":  "", 
-      "3":  "", 
-      "4":  "", 
-      "5":  "", 
-      "6":  "", 
-      "7":  "", 
-      "8":  "", 
-      "9":  "", 
+      "1":  "",
+      "2":  "",
+      "3":  "",
+      "4":  "",
+      "5":  "",
+      "6":  "",
+      "7":  "",
+      "8":  "",
+      "9":  "",
       "10": "",
     },
+    "persistent-only": "true",
+    "all-outputs": "true",
+  },
+
+  "mpd": {
+    "format": "{stateIcon} {consumeIcon}{randomIcon}{repeatIcon}{singleIcon} {title} ({elapsedTime:%M:%S}/{totalTime:%M:%S}) ",
+    "format-disconnected": "Disconnected ",
+    "format-stopped": "{consumeIcon}{randomIcon}{repeatIcon}{singleIcon}Stopped ",
+    "interval": 5,
+    "consume-icons": {
+      "on": " " // Icon shows only when "consume" is on
+    },
+    "random-icons": {
+      "off": "",
+      "on": " ",
+    },
+    "repeat-icons": {
+      "on": " "
+    },
+    "single-icons": {
+      "on": "1 ",
+    },
+    "state-icons": {
+      "paused": "",
+      "playing": ""
+    },
+    "tooltip-format": "MPD (connected)",
+    "tooltip-format-disconnected": "MPD (disconnected)",
+    "title-len": 20,
+    "on-click": "mpc toggle > /dev/null 2>&1",
+    "on-click-right": "mpc repeat > /dev/null 2>&1 && mpc single > /dev/null 2>&1"
   },
 
   "pulseaudio": {
@@ -50,7 +82,7 @@
     },
     "on-click": "pavucontrol"
   },
-  
+
   "network": {
     "format-wifi": "{essid} ({signalStrength}%) ",
     "format-ethernet": "{ipaddr}/{cidr} ",
@@ -59,7 +91,7 @@
     "format-disconnected": "Disconnected ⚠",
     "format-alt": "{ifname}: {ipaddr}/{cidr}"
   },
-  
+
   "clock": {
     "timezone": "Europe/Berlin",
     "iso8601": true,
@@ -69,7 +101,7 @@
   "hyprland/language": {
     "format": "{short}",
   },
-  
+
   "tray": {
     "icon-size": 21,
     "spacing": 2,
