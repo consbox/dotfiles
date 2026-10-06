@@ -15,6 +15,14 @@ audio_flags="--embed-metadata --prefer-free-formats"
 video_flags="--prefer-free-formats --write-auto-subs --embed-metadata \
 				   --embed-thumbnail --embed-subs"
 
+die ()
+{
+  printf '%s\n' "${@}" 1>&2
+  exit 1
+}
+
+command -v "$youtube_binary" >/dev/null 2>&1 || die "'$youtube_binary' not found\n"
+
 usage=$(cat <<_EOF
 Usage:
       ytd audio link -- Download audio.
@@ -22,16 +30,10 @@ Usage:
 _EOF
      )
 
-die ()
-{
-  printf '%s\n' "${@}" 1>&2
-  exit 1
-}
-
 get_audio ()
 {
-  cd "$audio_dir" || exit 1
   mkdir -p "${audio_dir}"
+  cd "$audio_dir" || exit 1
 
   if [ ${#1} -ne 0 ]; then
     ${youtube_binary} ${audio_flags}  -x "${1}"
@@ -42,8 +44,8 @@ get_audio ()
 
 get_video ()
 {
-  cd "$video_dir" || exit 1
   mkdir -p "${video_dir}"
+  cd "$video_dir" || exit 1
 
   if [ ${#1} -ne 0 ]; then
     ${youtube_binary} ${video_flags} "${1}"
