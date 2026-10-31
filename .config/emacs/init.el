@@ -24,27 +24,24 @@
 
 (use-package emacs
   :custom
-  (inhibit-startup-screen t "disable the startup screen")
   (use-short-answers t "uses shorter answers y or n")
   (ring-bell-function 'ignore "turn off bell")
   (vc-follow-symlinks t "follow symlinks without requesting confirmation.")
   (confirm-kill-emacs 'y-or-n-p "confirm before exiting emacs.")
-  (use-file-dialog nil)
-  (use-dialog-box nil)
-  (fill-column 120)
+  (visible-cursor nil)
   (delete-by-moving-to-trash t "move deleted files to trash")
-  (electric-pair-mode t "enable automatic brackets pairing.")
-  (column-number-mode t "show column numbers in modline.")
-  (warning-minimum-level :error "only show errors in *warning* buffer. (maybe not so good)")
+  (electric-pair-mode 1 "enable automatic brackets pairing.")
+  (column-number-mode 1 "show column numbers in modline.")
   :bind (("<escape>" . keyboard-escape-quit))
   :config
   (add-to-list 'default-frame-alist
 	       '(font . "DejaVu Sans Mono-16:bold:italic"))
   (add-hook 'prog-mode-hook (lambda ()
 			      (setq display-line-numbers 'relative)))
-
   (add-to-list 'load-path (expand-file-name "lisp/" user-emacs-directory))
+
   (require 'gptel-tools)
+  (require 'presets)
 
   ;; Move customization variables to a separate file and load it.
   (setq custom-file (expand-file-name "custom-vars.el" user-emacs-directory))
@@ -56,13 +53,14 @@
    (text-mode . hl-line-mode)))
 
 (use-package whitespace
-  :custom (whitespace-line-column nil "if nil, use the value of the ‘fill-column’ variable")
+  :custom
+  (whitespace-line-column 120)
   :bind (("C-c w" . whitespace-mode)
 	 ("C-c c" . whitespace-cleanup)))
 
 (use-package icomplete
-  :custom
-  (fido-mode 1 "enable fido-mode"))
+  :init
+  (fido-mode 1))
 
 (use-package man
   :bind (("C-c m" . man)))
@@ -83,9 +81,6 @@
 	 ("C-c j" . todo-jump-to-category)))
 
 (use-package org
-  :custom
-  (org-hide-leading-stars t)
-  (org-hide-emphasis-markers t)
   :hook ((org-mode . visual-line-mode))
   :custom-face
   (org-level-1 ((t (:height 1.35))))
@@ -136,65 +131,67 @@
 
 ;;; External packages
 
+(use-package system-packages
+  :ensure t)
+
 (use-package gptel
   :pin melpa
   :ensure t
   :bind (("C-c g l" . gptel)
 	 ("C-c g s" . gptel-send)
 	 ("C-c g r" . gptel-rewrite)
-	 ("C-c g m" . gptel-menu))
+	 ("C-c g m" . gptel-menu)
+	 ("C-c g a" . gptel-abort))
   :custom ((gptel-log-level 'info)
 	   (gptel-track-media t)
+	   (gptel-temperature 0.3)
+	   (gptel-use-tools t)
 	   (gptel-default-mode 'org-mode)
 	   (gptel-system-prompt "You are a large language model living in Emacs.
  Your name is Fido, and you are a helpful assistant. Respond concisely.")
 	   (gptel-include-reasoning "*reasoning-log*"))
   :hook ((gptel-post-stream . gptel-auto-scroll)
-	 (gptel-post-response-functions . gptel-end-of-response)
-	 (gptel-mode . gptel-highlight-mode))
+	 (gptel-post-response-functions . gptel-end-of-response))
   :config
   (setq gptel-model 'gemma4:latest
 	gptel-backend (gptel-make-ollama "Fido"
 			:host "localhost:11469"
 			:stream t
-			:request-params '(:keep_alive "15m"
-						      :options (:num_ctx 16384))
-			:models '(gemma4:latest qwen-uncensored-4B:latest))))
+			:request-params
+			'(:keep_alive "15m"
+				      :options (:num_ctx 16384))
+			:models '(mannix/llama3.1-8b-abliterated:latest gemma4:latest))))
 
-(use-package org-appear
-  :pin melpa
-  :ensure t
-  :after org-mode
-  :hook ((org-mode . org-appear-mode)))
-
-(use-package system-packages
-  :ensure t)
+(defun my/dired-icons-graphical-only ()
+  (when (display-graphic-p)
+    (all-the-icons-dired-mode 1)))
 
 (use-package all-the-icons-dired
   :pin melpa
   :ensure t
-  :hook (dired-mode . all-the-icons-dired-mode))
+  :hook (dired-mode . my/dired-icons-graphical-only))
+
+(defun my/gruvbox-theme-switcher ()
+  (interactive)
+  (let ((dark 'gruvbox)
+	(light 'gruvbox-light-hard))
+    (cond ((memq dark custom-enabled-themes)
+	   (disable-theme dark)
+	   (load-theme light t))
+	  ((memq light custom-enabled-themes)
+	   (disable-theme light)
+	   (load-theme dark t))
+	  (t (load-theme dark t)))))
 
 (use-package gruvbox-theme
   :pin nongnu
   :ensure t
-  :preface
-  (defun switch-theme ()
-    (interactive)
-    (let ((dark 'gruvbox-dark-hard)
-	  (light 'gruvbox-light-hard))
-      (cond ((memq dark custom-enabled-themes)
-	     (disable-theme dark)
-	     (load-theme light t))
-	    ((memq light custom-enabled-themes)
-	     (disable-theme light)
-	     (load-theme dark t)))))
-  :bind (("<f5>" . 'switch-theme))
+  :bind (("<f5>" . 'my/gruvbox-theme-switcher))
   :config
-  (load-theme 'gruvbox-dark-hard t)
+  (load-theme 'gruvbox t)
   (require 'whitespace)
   (set-face-attribute 'whitespace-space nil
-                      :foreground "#3c3836"))
+		      :foreground "#3c3836"))
 
 (use-package slime
   :ensure-system-package sbcl
